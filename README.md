@@ -2,6 +2,10 @@
 
 Application backend développée avec Symfony et conteneurisée avec Docker pour un déploiement et un développement simplifiés.
 
+![Capture d’écran du 2025-06-11 19-32-56](https://github.com/user-attachments/assets/42f8eb4e-886a-4cc7-a3ed-6d13c87a1504)
+![Capture d’écran du 2025-06-11 19-38-04](https://github.com/user-attachments/assets/6bdf2786-0147-48e6-b6d3-779d79a481d8)
+
+
 ## 🔧 Prérequis
 
 Avant de commencer, assurez-vous d'avoir installé sur votre environnement :
@@ -26,7 +30,7 @@ L'utilisation de Docker apporte de nombreux avantages :
 ```bash
 # Cloner le repository
 git clone [https://github.com/votre-username/mtx-backend.git](https://github.com/DanihStephane/loan-comparator-backend.git)
-cd mtx-backend
+cd loan-comparator-backend
 
 # Démarrer l'application
 make up
@@ -250,8 +254,6 @@ APP_DEBUG=false
 - **Analyse statique** niveau élevé avec PHPStan
 - **Tests unitaires** et fonctionnels intégrés
 - **Hot reload** pour le développement local
-
-![Capture d’écran du 2025-06-11 19-32-56](https://github.com/user-attachments/assets/42f8eb4e-886a-4cc7-a3ed-6d13c87a1504)
 
 
 ## 💡 Prochaines Améliorations
