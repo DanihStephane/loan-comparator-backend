@@ -1,0 +1,9 @@
+parameters:
+    treatPhpDocTypesAsCertain: false
+    level: 6
+    paths:
+        - src/
+    excludePaths:
+        - tests/*
+    ignoreErrors:
+        #- '#Property .+::\$id is never written, only read#'

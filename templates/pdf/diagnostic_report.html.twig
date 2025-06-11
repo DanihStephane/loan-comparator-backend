@@ -1,0 +1,208 @@
+{# templates/pdf/diagnostic_report.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport de diagnostic 3DS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #3498db;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .info-block {
+            margin-bottom: 15px;
+        }
+        .info-item {
+            margin: 5px 0;
+        }
+        .label {
+            font-weight: bold;
+        }
+        .sub-section {
+            margin-left: 20px;
+        }
+        .recommendations {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin-top: 20px;
+        }
+        .error {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rapport de diagnostic 3DS</h1>
+    <div class="info-block">
+        <div class="info-item"><span class="label">Transaction:</span> {{ transactionId }}</div>
+        <div class="info-item"><span class="label">Date:</span> {{ "now"|date("Y-m-d H:i:s") }}</div>
+        <div class="info-item"><span class="label">Contexte:</span> {{ context }}</div>
+    </div>
+
+    {# Informations générales #}
+    {% if diagnosticInfo.general is defined %}
+        <h2>Informations générales</h2>
+        <div class="info-block">
+            {% for key, value in diagnosticInfo.general %}
+                {% if value is iterable %}
+                    <div class="info-item"><span class="label">{{ key|capitalize }}:</span></div>
+                    <div class="sub-section">
+                        {% for subKey, subValue in value %}
+                            {% if subValue is iterable %}
+                                <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span></div>
+                                <div class="sub-section">
+                                    {% for subSubKey, subSubValue in subValue %}
+                                        <div class="info-item"><span class="label">{{ subSubKey|capitalize }}:</span> {{ subSubValue }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span> {{ subValue }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="info-item"><span class="label">{{ key|capitalize }}:</span> {{ value }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# Informations d'authentification #}
+    {% if diagnosticInfo.authentication is defined %}
+        <h2>Informations d'authentification</h2>
+        <div class="info-block">
+            {% for key, value in diagnosticInfo.authentication %}
+                {% if value is iterable %}
+                    <div class="info-item"><span class="label">{{ key|capitalize }}:</span></div>
+                    <div class="sub-section">
+                        {% for subKey, subValue in value %}
+                            {% if subValue is iterable %}
+                                <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span></div>
+                                <div class="sub-section">
+                                    {% for subSubKey, subSubValue in subValue %}
+                                        <div class="info-item"><span class="label">{{ subSubKey|capitalize }}:</span> {{ subSubValue }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span> {{ subValue }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="info-item"><span class="label">{{ key|capitalize }}:</span> {{ value }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# Informations d'erreur #}
+    {% if diagnosticInfo.error is defined %}
+        <h2>Informations d'erreur</h2>
+        <div class="info-block error">
+            {% for key, value in diagnosticInfo.error %}
+                {% if key != 'recommendation' %}
+                    {% if value is iterable %}
+                        <div class="info-item"><span class="label">{{ key|capitalize }}:</span></div>
+                        <div class="sub-section">
+                            {% for subKey, subValue in value %}
+                                {% if subValue is iterable %}
+                                    <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span></div>
+                                    <div class="sub-section">
+                                        {% for subSubKey, subSubValue in subValue %}
+                                            <div class="info-item"><span class="label">{{ subSubKey|capitalize }}:</span> {{ subSubValue }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span> {{ subValue }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="info-item"><span class="label">{{ key|capitalize }}:</span> {{ value }}</div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# Informations de risque #}
+    {% if diagnosticInfo.risk is defined %}
+        <h2>Informations de risque</h2>
+        <div class="info-block">
+            {% for key, value in diagnosticInfo.risk %}
+                {% if value is iterable %}
+                    <div class="info-item"><span class="label">{{ key|capitalize }}:</span></div>
+                    <div class="sub-section">
+                        {% for subKey, subValue in value %}
+                            {% if subValue is iterable %}
+                                <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span></div>
+                                <div class="sub-section">
+                                    {% for subSubKey, subSubValue in subValue %}
+                                        <div class="info-item"><span class="label">{{ subSubKey|capitalize }}:</span> {{ subSubValue }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span> {{ subValue }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="info-item"><span class="label">{{ key|capitalize }}:</span> {{ value }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# Informations de paiement #}
+    {% if diagnosticInfo.payment is defined %}
+        <h2>Informations de paiement</h2>
+        <div class="info-block">
+            {% for key, value in diagnosticInfo.payment %}
+                {% if value is iterable %}
+                    <div class="info-item"><span class="label">{{ key|capitalize }}:</span></div>
+                    <div class="sub-section">
+                        {% for subKey, subValue in value %}
+                            {% if subValue is iterable %}
+                                <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span></div>
+                                <div class="sub-section">
+                                    {% for subSubKey, subSubValue in subValue %}
+                                        <div class="info-item"><span class="label">{{ subSubKey|capitalize }}:</span> {{ subSubValue }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="info-item"><span class="label">{{ subKey|capitalize }}:</span> {{ subValue }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="info-item"><span class="label">{{ key|capitalize }}:</span> {{ value }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# Recommandations #}
+    {% if diagnosticInfo.error.recommendation is defined %}
+        <div class="recommendations">
+            <h2>Recommandations</h2>
+            <p>{{ diagnosticInfo.error.recommendation }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

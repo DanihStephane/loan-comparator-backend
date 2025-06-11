@@ -1,0 +1,11 @@
+framework:
+    messenger:
+        default_bus: messenger.bus.default
+        buses:
+            messenger.bus.default: ~
+        
+        routing:
+            'Symfony\Component\Mailer\Messenger\SendEmailMessage': sync
+
+        transports:
+            sync: 'sync://'
