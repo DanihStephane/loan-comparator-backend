@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  php:
+    container_name: mtx_backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      MAILER_DSN: smtp://mailer:1025
+      MAILER_TRANSPORT: smtp
+      MAILER_HOST: mailer
+      MAILER_PORT: 1025
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - database
+
+  nginx:
+    container_name: mtx_nginx
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
