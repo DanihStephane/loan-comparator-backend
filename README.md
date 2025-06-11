@@ -228,6 +228,97 @@ APP_DEBUG=false
 # Autres variables spécifiques à votre environnement de production
 ```
 
+# Tests des API avec curl
+
+Cette section présente les commandes curl pour tester les différents endpoints de l'API de prêts.
+
+## Prérequis
+
+- Assurez-vous que votre serveur API est démarré et accessible sur `localhost:8080`
+- curl doit être installé sur votre système
+
+## Endpoints disponibles
+
+### Récupération des taux de prêts (GET)
+
+Cette endpoint permet de récupérer les taux de prêts avec pagination et filtres.
+
+**Commande curl :**
+
+```bash
+curl -X GET \
+  "localhost:8080/api/loan_rates?page=1&itemsPerPage=1&amount=50000&duration=20" \
+  -H "Content-Type: application/json"
+```
+
+**Paramètres de requête :**
+- `page` : Numéro de la page (pagination)
+- `itemsPerPage` : Nombre d'éléments par page
+- `amount` : Montant du prêt souhaité
+- `duration` : Durée du prêt en années
+
+### Comparaison de prêts (POST)
+
+Cette endpoint permet de comparer différentes offres de prêts en envoyant les informations du demandeur.
+
+**Commande curl :**
+
+```bash
+curl -X POST \
+  "localhost:8080/api/loans/compare" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 100000,
+    "duration": 20,
+    "name": "Joe Doe",
+    "email": "test@test.com",
+    "phone": "0612345678"
+  }'
+```
+
+**Corps de la requête (JSON) :**
+- `amount` : Montant du prêt demandé
+- `duration` : Durée du prêt en années
+- `name` : Nom complet du demandeur
+- `email` : Adresse email du demandeur
+- `phone` : Numéro de téléphone du demandeur
+
+## Réponses attendues
+
+Les API retournent des réponses au format JSON. Vérifiez que :
+- Le code de statut HTTP est 200 pour une requête réussie
+- La réponse contient les données attendues au format JSON
+- Les headers de réponse incluent `Content-Type: application/json`
+
+## Exemples de tests
+
+Pour tester rapidement vos API, vous pouvez copier-coller les commandes ci-dessus dans votre terminal. Assurez-vous que votre serveur est bien démarré avant d'exécuter les commandes.
+
+### Test complet
+
+```bash
+# Test de l'endpoint GET
+echo "Test de récupération des taux de prêts..."
+curl -X GET \
+  "localhost:8080/api/loan_rates?page=1&itemsPerPage=1&amount=50000&duration=20" \
+  -H "Content-Type: application/json"
+
+echo -e "\n\n"
+
+# Test de l'endpoint POST
+echo "Test de comparaison de prêts..."
+curl -X POST \
+  "localhost:8080/api/loans/compare" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 100000,
+    "duration": 20,
+    "name": "Joe Doe",
+    "email": "test@test.com",
+    "phone": "0612345678"
+  }'
+```
+
 ## 🤝 Contribution
 
 1. **Fork** le projet
