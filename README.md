@@ -25,7 +25,7 @@ L'utilisation de Docker apporte de nombreux avantages :
 
 ```bash
 # Cloner le repository
-git clone https://github.com/votre-username/mtx-backend.git
+git clone [https://github.com/votre-username/mtx-backend.git](https://github.com/DanihStephane/loan-comparator-backend.git)
 cd mtx-backend
 
 # Démarrer l'application
@@ -250,6 +250,9 @@ APP_DEBUG=false
 - **Analyse statique** niveau élevé avec PHPStan
 - **Tests unitaires** et fonctionnels intégrés
 - **Hot reload** pour le développement local
+
+![Capture d’écran du 2025-06-11 19-32-56](https://github.com/user-attachments/assets/42f8eb4e-886a-4cc7-a3ed-6d13c87a1504)
+
 
 ## 💡 Prochaines Améliorations
 
