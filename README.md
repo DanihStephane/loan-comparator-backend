@@ -232,10 +232,112 @@ APP_DEBUG=false
 
 Cette section présente les commandes curl pour tester les différents endpoints de l'API de prêts.
 
+## Configuration de l'environnement
+
+Avant de lancer le build ou de démarrer l'application, veuillez créer un fichier `.env` à la racine de votre projet avec les variables d'environnement suivantes :
+
+Ceci est un exemple,
+
+```env
+APP_ENV=dev
+
+
+# In all environments, the following files are loaded if they exist,
+# the latter taking precedence over the former:
+#
+#  * .env                contains default values for the environment variables needed by the app
+#  * .env.local          uncommitted file with local overrides
+#  * .env.$APP_ENV       committed environment-specific defaults
+#  * .env.$APP_ENV.local uncommitted environment-specific overrides
+#
+# Real environment variables win over .env files.
+#
+# DO NOT DEFINE PRODUCTION SECRETS IN THIS FILE NOR IN ANY OTHER COMMITTED FILES.
+# https://symfony.com/doc/current/configuration/secrets.html
+#
+# Run "composer dump-env prod" to compile .env files for production use (requires symfony/flex >=1.2).
+# https://symfony.com/doc/current/best_practices.html#use-environment-variables-for-infrastructure-configuration
+
+###> symfony/framework-bundle ###
+APP_SECRET=6d2b931ba735af183faf08e84bc6e982
+###< symfony/framework-bundle ###
+###> doctrine/doctrine-bundle ###
+# Format described at https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url
+# IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
+#
+# DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+# DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8.0.32&charset=utf8mb4"
+# DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
+DATABASE_URL="mysql://mtx_admin:mtx@database:3306/mtx_database?serverVersion=8.0&charset=utf8mb4"
+
+#DATABASE_URL="mysql://root:root@127.0.0.1:3306/mtx_database?serverVersion=8.0&charset=utf8mb4"
+
+###< doctrine/doctrine-bundle ###
+
+###> symfony/mailer ###
+MAILER_DSN=smtp://mtx_mail:1025
+MAILER_FROM_ADDRESS='admin@example.com'
+###< symfony/mailer ###
+
+###> nelmio/cors-bundle ###
+CORS_ALLOW_ORIGIN='*'
+###< nelmio/cors-bundle ###
+
+OTP_EXPIRATION_MINUTES=15
+# The number of OTPs that can be generated for a single user within the specified interval.
+JWT_TOKEN_TTL=1000000000
+
+
+# The maximum number of login attempts allowed within the specified interval.
+LOGIN_RATE_LIMIT=5
+
+# The time interval within which the maximum number of login attempts is allowed.
+# This setting is used to implement a login rate limiting mechanism to prevent
+# brute-force attacks. The value should be a valid time interval string, e.g.
+# "1 minute", "30 seconds", etc.
+LOGIN_RATE_INTERVAL="1 minute"
+
+###> symfony/lock ###
+# Choose one of the stores below
+# postgresql+advisory://db_user:db_password@localhost/db_name
+LOCK_DSN=flock
+###< symfony/lock ###
+
+FRONTEND_URL=http://localhost:8081
+
+###> symfony/mailer ###
+mailer_from_address='noreply@mtx.com'
+MAILER_FROM_NAME='mtx Madagascar'
+###< symfony/mailer ###
+#MAILER_DSN=smtp://mailer:1025
+MAILER_DSN=smtp://localhost:1025
+
+
+###> cybersource/config ###
+CYBERSOURCE_MERCHANT_ID=1111100109
+CYBERSOURCE_KEY_ID=ba393c18-cca2-456e-95f4-dfec478d307c
+CYBERSOURCE_SECRET_KEY=eeMD+rC3Efhkb4uN4Lhkeir6n9Pxg07EQPPZCzwfQAI=
+CYBERSOURCE_ENV=production
+
+# ou 'production'
+###< cybersource/config ###
+
+###> app/encryption ###
+ENCRYPTION_KEY=Swu89PiqMUZlKYNmNzpVOW7wnC+sv8iJVUbhBm9KQT4=
+###< app/encryption ###
+CYBERSOURCE_WEBHOOK_SECRET=2f7afd00-4911-95e6-e063-a0588e0aa4cf
+
+
+LINK_EXPIRATION_MINUTES=15
+```
+
+**Important :** Assurez-vous de remplacer toutes les valeurs par vos propres configurations avant de lancer l'application.
+
 ## Prérequis
 
 - Assurez-vous que votre serveur API est démarré et accessible sur `localhost:8080`
 - curl doit être installé sur votre système
+- Le fichier `.env` doit être configuré (voir section ci-dessus)
 
 ## Endpoints disponibles
 
